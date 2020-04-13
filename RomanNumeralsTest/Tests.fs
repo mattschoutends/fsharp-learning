@@ -12,3 +12,7 @@ let ``1 returns I`` () =
 [<Fact>]
 let ``2 returns II`` () =
     Assert.Equal("II", Romanize.toRoman 2)
+
+[<Fact>]
+let ``3 returns III`` () =
+    Assert.Equal("III", Romanize.toRoman 3)

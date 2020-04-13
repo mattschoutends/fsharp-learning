@@ -4,5 +4,7 @@ module Romanize =
     let toRoman num =
         if num = 1 then
             "I"
-        else
+        elif num = 2 then
             "II"
+        else
+            "III"
