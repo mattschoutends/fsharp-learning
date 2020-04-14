@@ -11,6 +11,8 @@ open RomanNumerals
 [<InlineData("X", 10)>]
 [<InlineData("L", 50)>]
 [<InlineData("C", 100)>]
+[<InlineData("D", 500)>]
+[<InlineData("M", 1000)>]
 let ``Basic Roman Numerals I through M`` (roman: string, arabic: int) =
     Assert.Equal(roman, Romanize.toRoman arabic)
 
