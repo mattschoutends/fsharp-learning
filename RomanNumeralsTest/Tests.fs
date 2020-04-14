@@ -20,3 +20,15 @@ let ``3 returns III`` () =
 [<Fact>]
 let ``5 returns V`` () =
     Assert.Equal("V", Romanize.toRoman 5)
+
+[<Fact>]
+let ``10 returns X`` () =
+    Assert.Equal("X", Romanize.toRoman 10)
+
+[<Fact>]
+let ``50 returns L`` () =
+    Assert.Equal("L", Romanize.toRoman 50)
+
+[<Fact>]
+let ``100 returns C`` () =
+    Assert.Equal("C", Romanize.toRoman 100)

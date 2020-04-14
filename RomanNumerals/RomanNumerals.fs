@@ -10,4 +10,7 @@ module Romanize =
         match num with
         | 1 | 2 | 3 -> doOnes num
         | 5 -> "V"
+        | 10 -> "X"
+        | 50 -> "L"
+        | 100 -> "C"
         | _ -> "[shrug emoji]"
