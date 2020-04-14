@@ -6,6 +6,8 @@ module Romanize =
             match n with
             | 0 -> ""
             | _ -> "I" + doOnes (n-1) 
-        
-        doOnes num
 
+        match num with
+        | 1 | 2 | 3 -> doOnes num
+        | 5 -> "V"
+        | _ -> "[shrug emoji]"
