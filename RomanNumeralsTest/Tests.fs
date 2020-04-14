@@ -23,3 +23,14 @@ let ``2 returns II`` () =
 [<Fact>]
 let ``3 returns III`` () =
     Assert.Equal("III", Romanize.toRoman 3)
+
+[<Fact>]
+let ``4 returns IV`` () =
+    Assert.Equal("IV", Romanize.toRoman 4)
+
+[<Theory>]
+[<InlineData("VI", 6)>]
+[<InlineData("VII", 7)>]
+[<InlineData("VIII", 8)>]
+let ``6 through 8`` (roman: string, arabic: int) =
+    Assert.Equal(roman, Romanize.toRoman arabic)
