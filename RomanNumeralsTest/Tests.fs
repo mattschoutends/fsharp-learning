@@ -87,3 +87,15 @@ let ``50 through 99`` (roman: string, arabic: int) =
 [<InlineData("CDXCIX", 499)>]
 let ``101 through 499`` (roman: string, arabic: int) =
     Assert.Equal(roman, Romanize.toRoman arabic)
+
+[<Theory>]
+[<InlineData("DI", 501)>]
+[<InlineData("DX", 510)>]
+[<InlineData("DXLIV", 544)>]
+[<InlineData("DCCCLIV", 854)>]
+[<InlineData("CM", 900)>]
+[<InlineData("CMXCI", 991)>]
+[<InlineData("CMXCIX", 999)>]
+let ``501 through 999`` (roman: string, arabic: int) =
+    Assert.Equal(roman, Romanize.toRoman arabic)
+
