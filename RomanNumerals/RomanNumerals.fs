@@ -16,7 +16,8 @@ module Romanize =
         | n when 40 <= n && n <= 49 -> "XL" + toRoman (n-40)
         | n when 50 <= n && n <= 89 -> "L" + toRoman (n-50)
         | n when 90 <= n && n <= 99 -> "XC" + toRoman (n-90)
-        | 100 -> "C"
+        | n when 100 <= n && n <= 399 -> "C" + toRoman (n-100)
+        | n when 400 <= n && n <= 499 -> "CD" + toRoman (n-400)
         | 500 -> "D"
         | 1000 -> "M"
         | _ -> "[shrug emoji]"
