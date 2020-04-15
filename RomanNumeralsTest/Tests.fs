@@ -38,3 +38,16 @@ let ``6 through 8`` (roman: string, arabic: int) =
 [<Fact>]
 let ``9 returns IX`` () =
     Assert.Equal("IX", Romanize.toRoman 9)
+
+[<Theory>]
+[<InlineData("XI", 11)>]
+[<InlineData("XII", 12)>]
+[<InlineData("XIII", 13)>]
+[<InlineData("XIV", 14)>]
+[<InlineData("XV", 15)>]
+[<InlineData("XVI", 16)>]
+[<InlineData("XVII", 17)>]
+[<InlineData("XVIII", 18)>]
+[<InlineData("XIX", 19)>]
+let ``11 through 19`` (roman: string, arabic: int) =
+    Assert.Equal(roman, Romanize.toRoman arabic)
