@@ -34,3 +34,7 @@ let ``4 returns IV`` () =
 [<InlineData("VIII", 8)>]
 let ``6 through 8`` (roman: string, arabic: int) =
     Assert.Equal(roman, Romanize.toRoman arabic)
+
+[<Fact>]
+let ``9 returns IX`` () =
+    Assert.Equal("IX", Romanize.toRoman 9)
