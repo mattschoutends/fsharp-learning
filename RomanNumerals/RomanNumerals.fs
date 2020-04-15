@@ -8,9 +8,9 @@ module Romanize =
             | _ -> "I" + doOnes (n-1) 
 
         match num with
-        | 1 | 2 | 3 -> doOnes num
-        | 5 -> "V"
-        | n when 5 < n && n < 9 -> "V" + toRoman (n-5)
+        | n when n < 4 -> doOnes num
+        | 4 -> "IV"
+        | n when 5 <= n && n < 9 -> "V" + toRoman (n-5)
         | 9 -> "IX"
         | 10 -> "X"
         | n when 10 < n && n < 19 -> "X" + toRoman (n-10)
@@ -19,7 +19,6 @@ module Romanize =
         | 100 -> "C"
         | 500 -> "D"
         | 1000 -> "M"
-        | 4 -> "IV"
         | _ -> "[shrug emoji]"
 
         // Thinking there's a way to compress the ranges a bit...
