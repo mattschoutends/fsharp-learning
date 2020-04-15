@@ -61,5 +61,17 @@ let ``11 through 19`` (roman: string, arabic: int) =
 [<InlineData("XXX", 30)>]
 [<InlineData("XLI", 41)>]
 [<InlineData("XLVII", 47)>]
-let ``20 through 47`` (roman: string, arabic: int) =
+[<InlineData("XLIX", 49)>]
+let ``20 through 49`` (roman: string, arabic: int) =
+    Assert.Equal(roman, Romanize.toRoman arabic)
+
+[<Theory>]
+[<InlineData("L", 50)>]
+[<InlineData("LI", 51)>]
+[<InlineData("LXXVII", 77)>]
+[<InlineData("XC", 90)>]
+[<InlineData("XCIV", 94)>]
+[<InlineData("XCV", 95)>]
+[<InlineData("XCIX", 99)>]
+let ``50 through 99`` (roman: string, arabic: int) =
     Assert.Equal(roman, Romanize.toRoman arabic)

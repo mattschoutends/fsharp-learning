@@ -12,9 +12,10 @@ module Romanize =
         | 4 -> "IV"
         | n when 5 <= n && n < 9 -> "V" + toRoman (n-5)
         | 9 -> "IX"
-        | n when 10 <= n && n < 39 -> "X" + toRoman (n-10)
-        | n when 40 <= n && n < 49 -> "XL" + toRoman (n-40)
-        | 50 -> "L"
+        | n when 10 <= n && n <= 39 -> "X" + toRoman (n-10)
+        | n when 40 <= n && n <= 49 -> "XL" + toRoman (n-40)
+        | n when 50 <= n && n <= 89 -> "L" + toRoman (n-50)
+        | n when 90 <= n && n <= 99 -> "XC" + toRoman (n-90)
         | 100 -> "C"
         | 500 -> "D"
         | 1000 -> "M"
