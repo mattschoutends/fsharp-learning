@@ -99,3 +99,13 @@ let ``101 through 499`` (roman: string, arabic: int) =
 let ``501 through 999`` (roman: string, arabic: int) =
     Assert.Equal(roman, Romanize.toRoman arabic)
 
+[<Theory>]
+[<InlineData("MI", 1001)>] 
+[<InlineData("MCMLXXX", 1980)>]
+[<InlineData("MCMXCIX", 1999)>]
+[<InlineData("MM", 2000)>]
+[<InlineData("MMMIV", 3004)>]
+let ``More than a thousand`` (roman: string, arabic: int) =
+    Assert.Equal(roman, Romanize.toRoman arabic)
+
+

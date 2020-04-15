@@ -20,7 +20,7 @@ module Romanize =
         | n when 400 <= n && n <= 499 -> "CD" + toRoman (n-400)
         | n when 500 <= n && n <= 899 -> "D" + toRoman (n-500)
         | n when 900 <= n && n <= 999 -> "CM" + toRoman (n-900)
-        | 1000 -> "M"
+        | n when 1000 <= n -> "M" + toRoman(n-1000)
         | _ -> "[shrug emoji]"
 
         // Thinking there's a way to compress the ranges a bit...
