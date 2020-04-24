@@ -195,3 +195,13 @@ module RomanThree =
                 None
         )
         |> RomanNumeral3
+
+    let rec isValidDigitList3 digitList =
+        match digitList with
+        | [] -> true
+        | d1::d2::_
+            when d1 <= d2 -> false
+        | _::ds -> isValidDigitList3 ds
+    
+    let isValid3 (RomanNumeral3 digitList) = 
+        isValidDigitList3 digitList

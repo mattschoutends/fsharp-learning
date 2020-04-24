@@ -36,3 +36,12 @@ let ``R3 parsing`` () =
     Assert.Equal("MCMXLIV" |> toRomanNumeral3, RomanNumeral3 [M;CM;XL;IV])
     Assert.Equal("MC?I" |> toRomanNumeral3, RomanNumeral3 [M;C;I])
     Assert.Equal("abc" |> toRomanNumeral3, RomanNumeral3 [])
+
+[<Theory>]
+[<InlineData("IIII", true)>]
+[<InlineData("IV", true)>]
+[<InlineData("", true)>]
+[<InlineData("IIXX", false)>]
+[<InlineData("VV", false)>]
+let ``R3 validation`` (romanString, valid) =
+    Assert.Equal(romanString |> toRomanNumeral3 |> isValid3, valid)
