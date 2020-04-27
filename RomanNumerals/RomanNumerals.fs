@@ -1,20 +1,32 @@
 ﻿namespace RomanNumerals
 
 module Romanize = 
+    type RomanDigit = I | IV | V | IX | X | XL | L | XC | C | CD | D | CM | M
+    type Numeral = { Roman:RomanDigit; Arabic:int }
+    let numerals = [
+        { Roman=M; Arabic=1000 }
+        { Roman=CM; Arabic=900 }
+        { Roman=D; Arabic=500 }
+        { Roman=CD; Arabic=400 }
+        { Roman=C; Arabic=100 }
+        { Roman=XC; Arabic=90 }
+        { Roman=L; Arabic=50 }
+        { Roman=XL; Arabic=40 }
+        { Roman=X; Arabic=10 }
+        { Roman=IX; Arabic=9 }
+        { Roman=V; Arabic=5 }
+        { Roman=IV; Arabic=4 }
+        { Roman=I; Arabic=1 }
+        ]
+
     let rec toRoman num =
-        let numerals = [(1000, "M"); (900, "CM"); (500, "D"); (400, "CD"); (100, "C"); 
-                        (90, "XC"); (50, "L"); (40, "XL"); (10, "X"); 
-                        (9, "IX"); (5, "V"); (4, "IV"); (1, "I")]
-        
-        let romanAppend n t =
-            let arabic = fst t
-            let roman = snd t
-            roman + toRoman (n-arabic)
+        let romanAppend x numeral =
+            numeral.Roman.ToString() + toRoman (x-numeral.Arabic)
 
         match num with
         | 0 -> ""
         | _ -> numerals
-            |> List.tryFind( fun (arabic, roman) -> arabic <= num )
+            |> List.tryFind( fun (numeral) -> numeral.Arabic <= num )
             |> Option.get
             |> romanAppend num
 
