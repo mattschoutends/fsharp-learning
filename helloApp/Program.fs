@@ -5,18 +5,19 @@ open startproj.FriendlyString
 
 [<EntryPoint>]
 let main argv =
-    printfn "Hello World from F#!"
+    let (|MultOf3|_|) i = if i % 3 = 0 then Some MultOf3 else None
+    let (|MultOf5|_|) i = if i % 5 = 0 then Some MultOf5 else None
 
-    argv
-    |> Array.map getHelloString
-    |> Array.iter (printfn ("%s"))
+    let fizzbuzz i = 
+        match i with
+        | MultOf3 & MultOf5 -> "FizzBuzz"
+        | MultOf3 -> "Fizz"
+        | MultOf5 -> "Buzz"
+        | _ -> sprintf "%i" i
 
-    let sampleTable = [ for i in 0 .. 99 -> (i, i*i) ]
-    printfn "%A" sampleTable
+    [1..20]
+    |> List.map fizzbuzz
+    |> List.iter (fun x -> printfn "%s" x)
 
-    let repeater s = s + " " + s + " " + s
-    System.Console.WriteLine(repeater "chickens")
-    System.Console.WriteLine(repeater)
-    printfn "%A" repeater
 
     0 // return an integer exit code
