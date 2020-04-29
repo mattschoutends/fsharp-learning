@@ -9,24 +9,24 @@ open CommandLine.CommandLineParser
 [<Fact>]
 let ``Basic Parse Test`` () =
     let expected = {
-        verbose = true;
-        subdirectories = false;
+        verbose = VerboseOutput;
+        subdirectories = ExcludeSubdirectories;
         orderby = OrderByName;
     }
     let actual = parseCommandLine["/v"]
     Assert.Equal(actual, expected)
 
     let expected = {
-        verbose = true;
-        subdirectories = true;
+        verbose = VerboseOutput;
+        subdirectories = IncludeSubdirectories;
         orderby = OrderByName;
     }
     let actual = parseCommandLine["/v"; "/s"]
     Assert.Equal(actual, expected)
 
     let expected = {
-        verbose = false;
-        subdirectories = false;
+        verbose = TerseOutput;
+        subdirectories = ExcludeSubdirectories;
         orderby = OrderBySize;
     }
     let actual = parseCommandLine["/o"; "S"]
@@ -34,23 +34,17 @@ let ``Basic Parse Test`` () =
 
 [<Fact>]
 let ``Parse Command Line with Errors`` () =
-    let defaultOptions = {
-        verbose = false;
-        subdirectories = false;
-        orderby = OrderByName;
-    }
-
     let expected = {
-        verbose = true;
-        subdirectories = false;
+        verbose = VerboseOutput;
+        subdirectories = ExcludeSubdirectories;
         orderby = OrderByName;
     }
     let actual = parseCommandLine["/v"; "xyz"]
     Assert.Equal(actual, expected)
 
     let expected = {
-        verbose = false;
-        subdirectories = false;
+        verbose = TerseOutput;
+        subdirectories = ExcludeSubdirectories;
         orderby = OrderByName;
     }
     let actual = parseCommandLine["/o"; "xyz"]

@@ -5,20 +5,21 @@ open System
 module CommandLineParser =
     // based on https://fsharpforfunandprofit.com/posts/pattern-matching-command-line/
 
-    let OrderByName = "N"
-    let OrderBySize = "S"
+    type OrderByOption = OrderBySize | OrderByName
+    type SubdirectoryOption = IncludeSubdirectories | ExcludeSubdirectories
+    type VerboseOption = VerboseOutput | TerseOutput
 
     type CommandLineOptions = {
-        verbose: bool;
-        subdirectories: bool;
-        orderby: string;
+        verbose: VerboseOption;
+        subdirectories: SubdirectoryOption;
+        orderby: OrderByOption;
     }
 
     let rec parseCommandLineRec args optionsSoFar = 
         match args with
         | [] -> optionsSoFar
-        | "/v"::xs -> parseCommandLineRec xs {optionsSoFar with verbose=true}
-        | "/s"::xs -> parseCommandLineRec xs {optionsSoFar with subdirectories=true}
+        | "/v"::xs -> parseCommandLineRec xs {optionsSoFar with verbose=VerboseOutput}
+        | "/s"::xs -> parseCommandLineRec xs {optionsSoFar with subdirectories=IncludeSubdirectories}
         | "/o"::xs ->
             match xs with 
             | "S"::xss -> parseCommandLineRec xss {optionsSoFar with orderby=OrderBySize}
@@ -32,8 +33,8 @@ module CommandLineParser =
 
     let parseCommandLine args = 
         let defaultArgs = {
-            verbose = false;
-            subdirectories = false;
+            verbose = TerseOutput;
+            subdirectories = ExcludeSubdirectories;
             orderby = OrderByName;
         }
         parseCommandLineRec args defaultArgs
@@ -42,11 +43,8 @@ module CommandLineParser =
     [<EntryPoint>]
     let main argv =
         let argvList = argv |> Array.toList
-        let options = parseCommandLineRec argvList {
-            verbose = false;
-            subdirectories = false;
-            orderby = OrderByName;
-        }
+        let options = parseCommandLine argvList 
+
         printfn "Options: %A" options
 
         printfn "Hello World from F#!"
