@@ -8,18 +8,12 @@ open CommandLine.CommandLineParser
 
 [<Fact>]
 let ``Basic Parse Test`` () =
-    let defaultOptions = {
-        verbose = false;
-        subdirectories = false;
-        orderby = OrderByName;
-    }
-
     let expected = {
         verbose = true;
         subdirectories = false;
         orderby = OrderByName;
     }
-    let actual = parseCommandLine["/v"] defaultOptions
+    let actual = parseCommandLine["/v"]
     Assert.Equal(actual, expected)
 
     let expected = {
@@ -27,7 +21,7 @@ let ``Basic Parse Test`` () =
         subdirectories = true;
         orderby = OrderByName;
     }
-    let actual = parseCommandLine["/v"; "/s"] defaultOptions
+    let actual = parseCommandLine["/v"; "/s"]
     Assert.Equal(actual, expected)
 
     let expected = {
@@ -35,7 +29,7 @@ let ``Basic Parse Test`` () =
         subdirectories = false;
         orderby = OrderBySize;
     }
-    let actual = parseCommandLine["/o"; "S"] defaultOptions
+    let actual = parseCommandLine["/o"; "S"]
     Assert.Equal(actual, expected)
 
 [<Fact>]
@@ -51,7 +45,7 @@ let ``Parse Command Line with Errors`` () =
         subdirectories = false;
         orderby = OrderByName;
     }
-    let actual = parseCommandLine["/v"; "xyz"] defaultOptions
+    let actual = parseCommandLine["/v"; "xyz"]
     Assert.Equal(actual, expected)
 
     let expected = {
@@ -59,7 +53,7 @@ let ``Parse Command Line with Errors`` () =
         subdirectories = false;
         orderby = OrderByName;
     }
-    let actual = parseCommandLine["/o"; "xyz"] defaultOptions
+    let actual = parseCommandLine["/o"; "xyz"]
     Assert.Equal(actual, expected)
 
     // TODO:  Figure out how to check that logging to stderr happened

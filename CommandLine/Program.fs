@@ -14,27 +14,35 @@ module CommandLineParser =
         orderby: string;
     }
 
-    let rec parseCommandLine args optionsSoFar = 
+    let rec parseCommandLineRec args optionsSoFar = 
         match args with
         | [] -> optionsSoFar
-        | "/v"::xs -> parseCommandLine xs {optionsSoFar with verbose=true}
-        | "/s"::xs -> parseCommandLine xs {optionsSoFar with subdirectories=true}
+        | "/v"::xs -> parseCommandLineRec xs {optionsSoFar with verbose=true}
+        | "/s"::xs -> parseCommandLineRec xs {optionsSoFar with subdirectories=true}
         | "/o"::xs ->
             match xs with 
-            | "S"::xss -> parseCommandLine xss {optionsSoFar with orderby=OrderBySize}
-            | "N"::xss -> parseCommandLine xss {optionsSoFar with orderby=OrderByName} // this looks like it could be turned into a type
+            | "S"::xss -> parseCommandLineRec xss {optionsSoFar with orderby=OrderBySize}
+            | "N"::xss -> parseCommandLineRec xss {optionsSoFar with orderby=OrderByName} // this looks like it could be turned into a type
             | _ ->
                 eprintfn "OrderBy needs a valid second argument"
-                parseCommandLine xs optionsSoFar
+                parseCommandLineRec xs optionsSoFar
         | x::xs -> 
             eprintfn "Option '%s' is unrecognized" x // Could have a nice "usage" function...
-            parseCommandLine xs optionsSoFar
+            parseCommandLineRec xs optionsSoFar
+
+    let parseCommandLine args = 
+        let defaultArgs = {
+            verbose = false;
+            subdirectories = false;
+            orderby = OrderByName;
+        }
+        parseCommandLineRec args defaultArgs
         
 
     [<EntryPoint>]
     let main argv =
         let argvList = argv |> Array.toList
-        let options = parseCommandLine argvList {
+        let options = parseCommandLineRec argvList {
             verbose = false;
             subdirectories = false;
             orderby = OrderByName;
