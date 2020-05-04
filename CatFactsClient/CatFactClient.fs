@@ -1,10 +1,14 @@
 namespace CatFacts
 
 open System.Net.Http
-open FSharp.Data
-open FSharp.Data.JsonExtensions
+open Newtonsoft.Json
 
 module CatFactClient =
+    type CatFact = {
+        User: string;
+        Text: string;
+        Type: string;
+    }
 
     let getRandomFactJson animalType amount =
         let url = sprintf "https://cat-fact.herokuapp.com/facts/random?animal_type=%s&amount=%d" animalType amount
@@ -14,9 +18,11 @@ module CatFactClient =
         content
 
     let extractFact jsonFact =
-        let parsed = JsonValue.Parse jsonFact
-        let text = parsed?text
-        text.AsString()
+        try
+            let parsed = JsonConvert.DeserializeObject<CatFact>(jsonFact)
+            parsed.Text
+        with
+           | ex -> eprintf "%s\n" ex.Message; "Cat Fact Failure!"
 
 
     let getCatFact () =
